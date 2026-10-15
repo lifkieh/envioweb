@@ -198,11 +198,19 @@ body{background:var(--gesso-canvas);color:var(--gesso-fg);font-family:var(--gess
 .guide b{color:var(--gesso-fg)}
 
 @media (max-width:720px){
-  .app{grid-template-columns:1fr}
+  .app{grid-template-columns:minmax(0,1fr)}
+  .sidebar,.sidebar-nav,.main{min-width:0}
   .sidebar{flex-direction:row;flex-wrap:wrap;align-items:center;border-right:none;border-bottom:1px solid var(--gesso-divider)}
   .sidebar-nav{flex-direction:row;flex-wrap:wrap;flex:1 1 100%;order:3}
   .sidebar-foot{flex-direction:row;border-top:none;flex:1 1 100%;justify-content:space-between;order:2}
   .frm-2{grid-template-columns:1fr}
+  /* nav becomes one swipeable row of tabs instead of a wrapped, interleaved list */
+  .sidebar-nav{flex-wrap:nowrap;overflow-x:auto;gap:6px;padding:2px 0 8px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+  .sidebar-nav .nav-group{display:none}
+  .sidebar-nav .nav-item{flex:0 0 auto;white-space:nowrap;border-left:none;border-bottom:3px solid transparent;border-radius:var(--gesso-radius-md) var(--gesso-radius-md) 0 0}
+  .sidebar-nav .nav-item.active{border-bottom-color:var(--gesso-accent)}
+  .lnk.chip-btn,.chip-btn,.btn-file,.a-btn.sm{min-height:40px}
+  .dtable .lnk,.acts2 .lnk{min-height:40px;display:inline-flex;align-items:center}
 }
 
 /* ============ UX v2: simpler, friendlier for non-technical admins ============ */
@@ -239,6 +247,8 @@ textarea.ipt{min-height:64px;resize:vertical}
 .switch input:checked + .slider{background:var(--gesso-success)}
 .switch input:checked + .slider::before{transform:translateX(17px)}
 .switch .switch-txt{font-size:13px;font-weight:600;color:var(--gesso-fg-muted)}
+/* inside a field row the generic `.frm-f label` (column flex) must not apply to the switch */
+.frm-f label.switch{display:inline-flex;flex-direction:row;align-items:center;gap:9px}
 .switch input:checked ~ .switch-txt{color:var(--gesso-success)}
 
 /* image field: preview + action buttons */
@@ -249,6 +259,7 @@ textarea.ipt{min-height:64px;resize:vertical}
 .img-actions .img-path{flex:1 1 100%;order:3;font-size:12px;color:var(--gesso-fg-muted)}
 .btn-file{display:inline-flex;align-items:center;cursor:pointer;background:var(--gesso-accent);color:var(--gesso-on-accent);border-radius:var(--gesso-radius-full);font-size:13px;font-weight:600;padding:8px 16px}
 .btn-file:hover{filter:brightness(1.06)}
+label.btn-file,.img-actions label.btn-file{color:var(--gesso-on-accent)}
 
 /* buttons for list add/remove — friendlier */
 .chip-btn{display:inline-flex;align-items:center;gap:4px;background:var(--gesso-surface-recessed);border:1px solid var(--gesso-divider);border-radius:var(--gesso-radius-full);padding:6px 13px;font-size:12.5px;font-weight:600;color:var(--gesso-fg);cursor:pointer;text-decoration:none}
@@ -275,6 +286,6 @@ textarea.ipt{min-height:64px;resize:vertical}
 /* guide */
 .guide-step{padding:12px 0;border-bottom:1px solid var(--gesso-divider)}
 .guide-step:last-child{border-bottom:none}
-.guide-step b{display:block;margin-bottom:3px;color:var(--gesso-fg)}
+.guide-step > b{display:block;margin-bottom:3px;color:var(--gesso-fg)}
 .guide-step p{margin:0;font-size:13.5px;color:var(--gesso-fg-muted)}
 .tag{display:inline-block;background:color-mix(in srgb,var(--gesso-accent) 12%,transparent);color:var(--gesso-accent);font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px}

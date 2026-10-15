@@ -87,7 +87,7 @@ function reallyPublish(){
   });
 }
 function openConflict(data){
-  openModal("Konten sudah diubah orang lain", '<p>' + esc(data.error || "Ada yang menyimpan lebih dulu.") + '</p><p class="muted small">Muat ulang mengambil versi terbaru; perubahanmu yang belum tersimpan akan hilang — catat dulu bila perlu.</p>', [
+  openModal("Konten sudah diubah orang lain", '<p>' + esc(data.error || "Ada yang menyimpan lebih dulu.") + '</p><p class="muted small">Muat ulang mengambil versi terbaru; perubahanmu yang belum tersimpan akan hilang, jadi catat dulu bila perlu.</p>', [
     { label: "Biarkan dulu", cls: "a-btn-ghost", act: closeModal },
     { label: "Muat ulang versi terbaru", cls: "a-btn-solid", act: function(){ closeModal(); loadContent(); toast("Dimuat ulang ke versi terbaru."); } }
   ]);
@@ -98,7 +98,7 @@ var TITLES = { settings: "Pengaturan Situs", collections: "Koleksi Konten", home
 function selectSection(key){
   state.section = key;
   var items = document.querySelectorAll("#sidebarNav .nav-item");
-  for(var i = 0; i < items.length; i++) items[i].className = "nav-item" + (items[i].getAttribute("data-section") === key ? " active" : "");
+  for(var i = 0; i < items.length; i++){ var on = items[i].getAttribute("data-section") === key; items[i].className = "nav-item" + (on ? " active" : ""); if(on && items[i].scrollIntoView && items[i].parentNode.scrollWidth > items[i].parentNode.clientWidth) items[i].parentNode.scrollLeft = Math.max(0, items[i].offsetLeft - 16); }
   $("sectionTitle").textContent = TITLES[key] || "";
   if(key === "riwayat"){ renderRiwayat(); return; }
   if(key === "pengguna"){ renderPengguna(); return; }
@@ -118,7 +118,7 @@ function inp(path, val, type, opts){
   if(type === "number") return '<input class="ipt" data-path="' + esc(path) + '" data-type="number" value="' + esc(v) + '">';
   if(type === "bool"){ var on = (val === undefined) ? (opts && opts.def !== false) : !!(val === true || val === 1 || val === "1" || val === "true"); return '<label class="switch"><input type="checkbox" class="bool-in" data-path="' + esc(path) + '"' + (on ? " checked" : "") + '><span class="slider"></span><span class="switch-txt">' + esc((opts && opts.boolText) || "Aktif") + '</span></label>'; }
   if(type === "select"){ var o = (opts && opts.options) || []; return '<select class="ipt sel-in" data-path="' + esc(path) + '">' + o.map(function(x){ return '<option value="' + esc(x) + '"' + (String(v) === String(x) ? " selected" : "") + '>' + esc(x) + '</option>'; }).join("") + '</select>'; }
-  if(type === "image") return '<div class="img-up"><span class="img-prev">' + (v ? '<img src="' + esc(v) + '" alt="">' : '<span class="muted">—</span>') + '</span>' +
+  if(type === "image") return '<div class="img-up"><span class="img-prev">' + (v ? '<img src="' + esc(v) + '" alt="">' : '<span class="muted small">Kosong</span>') + '</span>' +
     '<div class="img-actions"><label class="btn-file">Pilih file<input type="file" class="img-file" data-target="' + esc(path) + '" accept="image/png,image/jpeg,image/webp" hidden></label>' +
     '<button type="button" class="lnk chip-btn gallery-btn" data-target="' + esc(path) + '">Galeri</button>' +
     (v ? '<button type="button" class="lnk chip-btn danger img-del" data-target="' + esc(path) + '">Hapus</button>' : '') +
@@ -193,7 +193,7 @@ function wireEditor(){
     var val = t.value;
     if(t.getAttribute("data-type") === "number"){ var n = parseInt(val, 10); if(isNaN(n)) return; val = n; }
     M.setPath(state.content, path, val);
-    if(t.classList.contains("img-path")){ var prev = t.parentNode.querySelector(".img-prev"); if(prev) prev.innerHTML = val ? '<img src="' + esc(val) + '" alt="">' : '<span class="muted">belum ada</span>'; }
+    if(t.classList.contains("img-path")){ var prev = t.parentNode.querySelector(".img-prev"); if(prev) prev.innerHTML = val ? '<img src="' + esc(val) + '" alt="">' : '<span class="muted small">Kosong</span>'; }
     markDirty();
   }
   c.addEventListener("input", onEdit);
@@ -283,7 +283,7 @@ function renderPengguna(){
       '<div class="frm-f"><label>Kata sandi Anda (konfirmasi)</label><input type="password" class="ipt" id="nuAdminPw" autocomplete="current-password" placeholder="Verifikasi identitas Anda"></div>' +
       '<div class="frm-err" id="nuErr" hidden></div><button class="a-btn a-btn-solid" id="nuAdd" type="button">Tambah</button></div>';
     html += '<div class="card"><h2>Daftar Pengguna</h2><div class="tablewrap"><table class="dtable"><thead><tr><th>Nama</th><th>Dibuat</th><th></th></tr></thead><tbody>';
-    list.forEach(function(u){ html += '<tr><td>' + esc(u.username) + (u.username === me ? ' <span class="tag">Anda</span>' : '') + '</td><td class="muted small">' + esc(fmtTime(u.createdAt)) + '</td><td class="acts2">' + (u.username === me || list.length <= 1 ? '<span class="muted small">—</span>' : '<button class="lnk danger" data-deluser="' + esc(u.username) + '">Hapus</button>') + '</td></tr>'; });
+    list.forEach(function(u){ html += '<tr><td>' + esc(u.username) + (u.username === me ? ' <span class="tag">Anda</span>' : '') + '</td><td class="muted small">' + esc(fmtTime(u.createdAt)) + '</td><td class="acts2">' + (u.username === me || list.length <= 1 ? '<span class="muted small">Tidak tersedia</span>' : '<button class="lnk danger" data-deluser="' + esc(u.username) + '">Hapus</button>') + '</td></tr>'; });
     html += '</tbody></table></div></div>';
     $("content").innerHTML = html;
     $("nuAdd").addEventListener("click", function(){

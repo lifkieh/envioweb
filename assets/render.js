@@ -25,6 +25,7 @@ function href(h){ return h; }
 
 var ICONS = {
   food:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>',
+  serviceware:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 3v18M4.5 3v5a2.5 2.5 0 005 0V3"/><path d="M17 21V3c-2 1.5-3 4-3 7v3h3"/></svg>',
   printing:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h12v4H6z"/><path d="M9 7v4M15 7v4"/><rect x="7" y="11" width="10" height="10" rx="1"/></svg>',
   electronics:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2"/></svg>',
   beauty:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 2h6v3H9z"/><path d="M8 5h8l1 15a2 2 0 01-2 2H9a2 2 0 01-2-2L8 5z"/><path d="M8.5 12h7"/></svg>',
@@ -33,6 +34,13 @@ var ICONS = {
   construction:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/></svg>'
 };
 function icon(k){ return ICONS[k]||""; }
+/* Photos listed in `gallery` open in the lightbox (main.js) when the tile/chip is clicked. */
+function galleryAttrs(it){ var g=(it.gallery||[]).filter(Boolean); return g.length ? ' data-gallery="'+e(g.join("|"))+'" data-title="'+e(it.name)+'"' : ''; }
+function industryTile(ind){
+  var ga=galleryAttrs(ind), inner='<div class="icon">'+icon(ind.icon)+'</div><span>'+e(ind.name)+'</span>';
+  if(!ga) return '<div class="industry-tile reveal">'+inner+'</div>';
+  return '<button type="button" class="industry-tile is-clickable reveal"'+ga+'>'+inner+'<small class="view-hint">View photos</small></button>';
+}
 var WA_SVG='<svg viewBox="0 0 32 32"><path d="M16 3C9 3 3 9 3 16c0 2.5.7 4.8 1.9 6.8L3 29l6.4-1.8c1.9 1 4.1 1.6 6.6 1.6 7 0 13-6 13-13S23 3 16 3zm0 23.6c-2.2 0-4.3-.6-6.1-1.7l-.4-.3-3.8 1 1-3.7-.3-.4C5.3 20 4.6 18 4.6 16c0-6.3 5.1-11.4 11.4-11.4S27.4 9.7 27.4 16 22.3 26.6 16 26.6zm6.3-8.5c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.2-.8-1.9-1-2.6-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.3 1.4 3.5c.2.2 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.2 1.5.2 2.1.1.6-.1 2-.8 2.2-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.2-.6-.4z"/></svg>';
 
 /* ---------- header / footer / wa-float ---------- */
@@ -89,7 +97,8 @@ function subnav(sections){
 function home(P){
   var s=P.sections||{}, out="";
   var d=s.hero; if(shown(d)){
-    out+='<section class="hero"><div class="hero-video-wrap" aria-hidden="true"><video class="hero-video" autoplay muted loop playsinline preload="auto" poster="'+e(d.poster)+'"><source src="'+e(d.video)+'" media="(min-width: 781px)" type="video/mp4"></video></div>';
+    if(d.image) out+='<section class="hero"><div class="hero-video-wrap hero-photo" aria-hidden="true"><picture>'+(d.image_mobile?'<source media="(max-width: 780px)" srcset="'+e(d.image_mobile)+'">':'')+'<img src="'+e(d.image)+'" alt="" fetchpriority="high"></picture></div>'; // photo replaces the video when set
+    else out+='<section class="hero"><div class="hero-video-wrap" aria-hidden="true"><video class="hero-video" autoplay muted loop playsinline preload="auto" poster="'+e(d.poster)+'"><source src="'+e(d.video)+'" media="(min-width: 781px)" type="video/mp4"></video></div>';
     out+='<div class="container hero-grid"><div class="reveal in"><div class="hero-eyebrow">'+e(d.eyebrow)+'</div><h1>'+e(d.heading)+'</h1><p class="lead">'+e(d.lead)+'</p><div class="hero-actions">';
     (d.buttons||[]).forEach(function(b){ out+='<a href="'+e(href(b.href))+'" class="btn '+e(b.style)+'">'+e(b.label)+'</a>'; });
     out+='</div><div class="hero-stats">';
@@ -99,12 +108,17 @@ function home(P){
     out+='</ul></div></div></section>';
   }
   d=s["who-we-are"]; if(shown(d)){
-    out+='<section class="section"><div class="container grid grid-2" style="align-items:center; gap:64px;"><div class="reveal"><div class="eyebrow">'+e(d.eyebrow)+'</div><h2>'+e(d.heading)+'</h2>';
-    (d.paragraphs||[]).forEach(function(p){ out+='<p>'+e(p)+'</p>'; });
-    out+='<a href="'+e(href((d.button||{}).href))+'" class="btn btn-outline-dark">'+e((d.button||{}).label)+'</a></div>';
-    out+='<div class="reveal hero-panel" style="background:var(--cream-200); border-color:var(--line-200);"><h3 style="color:var(--forest-900);">'+e(d.panel_title)+'</h3><ul>';
-    vis(COLL.pillar).forEach(function(p){ out+='<li style="color:var(--ink-700);"><span class="dot" style="background:var(--gold-500);"></span> <strong style="color:var(--forest-900);">'+e(p.title)+'</strong> — '+e(p.summary)+'</li>'; });
-    out+='</ul></div></div></section>';
+    var panel='<div class="reveal hero-panel" style="background:var(--cream-200); border-color:var(--line-200);"><h3 style="color:var(--forest-900);">'+e(d.panel_title)+'</h3><ul>';
+    vis(COLL.pillar).forEach(function(p){ panel+='<li style="color:var(--ink-700);"><span class="dot" style="background:var(--gold-500);"></span> <span><strong style="color:var(--forest-900);">'+e(p.title)+'</strong>: '+e(p.summary)+'</span></li>'; });
+    panel+='</ul></div>';
+    var intro='<div class="eyebrow">'+e(d.eyebrow)+'</div><h2>'+e(d.heading)+'</h2>';
+    (d.paragraphs||[]).forEach(function(p){ intro+='<p>'+e(p)+'</p>'; });
+    intro+='<a href="'+e(href((d.button||{}).href))+'" class="btn btn-outline-dark">'+e((d.button||{}).label)+'</a>';
+    if(d.image){
+      out+='<section class="section"><div class="container who-grid"><div class="who-photo reveal"><img src="'+e(d.image)+'" alt="'+e(d.image_alt)+'" loading="lazy"></div><div><div class="reveal">'+intro+'</div>'+panel+'</div></div></section>';
+    } else {
+      out+='<section class="section"><div class="container grid grid-2" style="align-items:center; gap:64px;"><div class="reveal">'+intro+'</div>'+panel+'</div></section>';
+    }
   }
   d=s["what-we-offer"]; if(shown(d)){
     out+='<section class="section section--alt"><div class="container"><div class="section-head center reveal"><div class="eyebrow" style="justify-content:center;">'+e(d.eyebrow)+'</div><h2>'+e(d.heading)+'</h2><p>'+e(d.intro)+'</p></div><div class="grid grid-3">';
@@ -113,12 +127,12 @@ function home(P){
   }
   d=s["our-materials"]; if(shown(d)){
     out+='<section class="section"><div class="container"><div class="section-head center reveal"><div class="eyebrow" style="justify-content:center;">'+e(d.eyebrow)+'</div><h2>'+e(d.heading)+'</h2></div><div class="grid grid-2">';
-    vis(COLL.compound_family).forEach(function(fam){ out+='<a href="'+e(href(fam.link))+'" class="gallery-card reveal"><div class="media"><img src="'+e(fam.image)+'" alt="'+e(fam.card_alt)+'"></div><div class="caption"><h4>'+e(fam.title)+'</h4><p>'+e(fam.card_summary)+'</p></div></a>'; });
+    vis(COLL.compound_family).forEach(function(fam){ out+='<a href="'+e(href(fam.link))+'" class="gallery-card reveal"><div class="media"><img src="'+e(fam.image)+'" alt="'+e(fam.card_alt)+'" loading="lazy"></div><div class="caption"><h4>'+e(fam.title)+'</h4><p>'+e(fam.card_summary)+'</p></div></a>'; });
     out+='</div></div></section>';
   }
   d=s.industries; if(shown(d)){
     out+='<section class="section section--alt"><div class="container"><div class="section-head center reveal"><div class="eyebrow" style="justify-content:center;">'+e(d.eyebrow)+'</div><h2>'+e(d.heading)+'</h2></div><div class="industry-grid">';
-    vis(COLL.industry).forEach(function(ind){ out+='<div class="industry-tile reveal"><div class="icon">'+icon(ind.icon)+'</div><span>'+e(ind.name)+'</span></div>'; });
+    vis(COLL.industry).forEach(function(ind){ out+=industryTile(ind); });
     out+='</div></div></section>';
   }
   d=s.cta; if(shown(d)) out+=cta(d,"section");
@@ -133,7 +147,7 @@ function about(P){
   var d=s["about-us"]; if(shown(d)){
     out+='<section id="about-us" class="section"><div class="container grid grid-2" style="align-items:center; gap:64px;"><div class="reveal"><div class="eyebrow">'+e(d.eyebrow)+'</div><h2>'+e(d.heading)+'</h2>';
     (d.paragraphs||[]).forEach(function(p){ out+='<p>'+e(p)+'</p>'; });
-    out+='</div><div class="reveal hero-panel" style="background:var(--forest-900);"><h3>'+e(d.panel_title)+'</h3><ul>';
+    out+='</div><div class="reveal hero-panel" style="background:var(--green-349);"><h3>'+e(d.panel_title)+'</h3><ul>';
     (d.panel_points||[]).forEach(function(p){ out+='<li><span class="dot"></span> '+e(p)+'</li>'; });
     out+='</ul></div></div></section>';
   }
@@ -152,7 +166,7 @@ function about(P){
   }
   d=s["industries-served"]; if(shown(d)){
     out+='<section id="industries-served" class="section section--alt"><div class="container"><div class="section-head center reveal"><div class="eyebrow" style="justify-content:center;">'+e(d.eyebrow)+'</div><h2>'+e(d.heading)+'</h2></div><div class="industry-grid">';
-    vis(COLL.industry).forEach(function(ind){ out+='<div class="industry-tile reveal"><div class="icon">'+icon(ind.icon)+'</div><span>'+e(ind.name)+'</span></div>'; });
+    vis(COLL.industry).forEach(function(ind){ out+=industryTile(ind); });
     out+='</div></div></section>';
   }
   d=s["environmental-quality"]; if(shown(d)){
@@ -169,20 +183,42 @@ function products(P){
   var s=P.sections||{}, out="";
   if(shown(s.hero)) out+=pageBanner(s.hero);
   out+=subnav(s);
-  var d=s["core-products"]; if(shown(d)){
+  var d=s["pla-introduction"]; if(shown(d)){
+    out+='<section id="pla-introduction" class="section"><div class="container"><div class="section-head center reveal"><div class="eyebrow" style="justify-content:center;">'+e(d.eyebrow)+'</div><h2>'+e(d.heading)+'</h2></div><div class="grid grid-2 pla-intro-grid">';
+    (d.blocks||[]).forEach(function(b){ out+='<div class="card reveal"><h3>'+e(b.title)+'</h3><p class="pla-lead">'+e(b.lead)+'</p><p>'+e(b.text)+'</p></div>'; });
+    out+='</div>';
+    if((d.stats||[]).length){
+      out+='<div class="pla-stats reveal">';
+      d.stats.forEach(function(st){ out+='<div class="pla-stat"><strong>'+e(st.number)+'</strong><span>'+e(st.label)+'</span></div>'; });
+      out+='</div>';
+      if(d.stats_source) out+='<p class="pla-source">'+e(d.stats_source)+'</p>';
+    }
+    if((d.features||[]).length){
+      out+='<div class="chip-list-title reveal" style="margin-top:48px;">'+e(d.features_title)+'</div><div class="pillar-list pla-features">';
+      d.features.forEach(function(f,i){ out+='<div class="pillar reveal"><span class="mark">'+("0"+(i+1)).slice(-2)+'</span><div><h4>'+e(f.title)+'</h4><p>'+e(f.text)+'</p></div></div>'; });
+      out+='</div>';
+    }
+    out+='</div></section>';
+  }
+  d=s["core-products"]; if(shown(d)){
     out+='<section id="core-products" class="section"><div class="container"><div class="section-head center reveal"><div class="eyebrow" style="justify-content:center;">'+e(d.eyebrow)+'</div><h2>'+e(d.heading)+'</h2></div><div class="grid grid-3">';
     vis(COLL.service).forEach(function(sv,i){ out+='<div class="card reveal"><span class="num">'+("0"+(i+1)).slice(-2)+'</span><h3>'+e(sv.title)+'</h3><p>'+e(sv.description)+'</p></div>'; });
     out+='</div></div></section>';
   }
   d=s["pla-compounds"]; var pla=item("compound_family","cf-pla");
   if(shown(d) && pla){
-    out+='<section id="pla-compounds" class="section section--alt"><div class="container"><div class="material-block"><div class="material-media reveal"><img src="'+e(pla.detail_image)+'" alt="'+e(pla.detail_alt)+'"></div><div class="reveal"><div class="eyebrow">'+e(pla.eyebrow)+'</div><h2>'+e(pla.title)+'</h2><p>'+e(pla.description)+'</p><div class="chip-list-title">'+e(pla.applications_title)+'</div><div class="chip-list">';
-    (pla.applications||[]).forEach(function(a){ out+='<span class="chip">'+e(a)+'</span>'; });
-    out+='</div></div></div></div></section>';
+    var apps=vis(COLL.pla_application);
+    out+='<section id="pla-compounds" class="section section--alt"><div class="container"><div class="material-block"><div class="material-media reveal"><img src="'+e(pla.detail_image)+'" alt="'+e(pla.detail_alt)+'" loading="lazy"></div><div class="reveal"><div class="eyebrow">'+e(pla.eyebrow)+'</div><h2>'+e(pla.title)+'</h2><p>'+e(pla.description)+'</p>';
+    out+='<div class="chip-list-title">'+e(pla.applications_title)+'</div><div class="chip-list">';
+    if(apps.length) apps.forEach(function(a){ var ga=galleryAttrs(a); out+=ga ? '<button type="button" class="chip is-clickable"'+ga+'>'+e(a.name)+'</button>' : '<span class="chip">'+e(a.name)+'</span>'; });
+    else (pla.applications||[]).forEach(function(a){ out+='<span class="chip">'+e(a)+'</span>'; });
+    out+='</div>';
+    if(apps.some(function(a){ return (a.gallery||[]).length; })) out+='<p class="chip-hint">Click an application to see example products.</p>';
+    out+='</div></div></div></section>';
   }
   d=s["natural-resource-compounds"]; if(shown(d)){
     out+='<section id="natural-resource-compounds" class="section"><div class="container"><div class="section-head center reveal"><div class="eyebrow" style="justify-content:center;">'+e(d.eyebrow)+'</div><h2>'+e(d.heading)+'</h2><p>'+e(d.intro)+'</p></div><div class="gallery-grid">';
-    vis(COLL.nrc).forEach(function(n){ out+='<div class="gallery-card reveal"><div class="media"><img src="'+e(n.image)+'" alt="'+e(n.image_alt)+'"></div><div class="caption"><h4>'+e(n.name)+'</h4><p>'+e(n.card_desc)+'</p></div></div>'; });
+    vis(COLL.nrc).forEach(function(n){ out+='<div class="gallery-card reveal"><div class="media"><img src="'+e(n.image)+'" alt="'+e(n.image_alt)+'" loading="lazy"></div><div class="caption"><h4>'+e(n.name)+'</h4><p>'+e(n.card_desc)+'</p></div></div>'; });
     var cb=d.custom_button||{};
     out+='<div class="gallery-card reveal" style="display:flex; align-items:center; justify-content:center; padding:24px; text-align:center;"><div><h4 style="margin-bottom:8px;">'+e(d.custom_title)+'</h4><p style="margin-bottom:16px; font-size:0.88rem;">'+e(d.custom_text)+'</p><a href="'+e(href(cb.href))+'" class="btn btn-primary" style="padding:10px 20px; font-size:0.85rem;">'+e(cb.label)+'</a></div></div>';
     out+='</div><div class="grid grid-2" style="margin-top:56px; gap:40px;"><div class="reveal"><div class="chip-list-title">'+e(d.compounds_list_title)+'</div><div class="chip-list">';

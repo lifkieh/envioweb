@@ -61,6 +61,10 @@
                     "page": "products",
                     "children": [
                         {
+                            "label": "Introduction of PLA",
+                            "href": "products.html#pla-introduction"
+                        },
+                        {
                             "label": "Core Products & Services",
                             "href": "products.html#core-products"
                         },
@@ -79,11 +83,6 @@
                     "label": "Contact",
                     "href": "contact.html",
                     "page": "contact"
-                },
-                {
-                    "type": "cta",
-                    "label": "Request a Quote",
-                    "href": "contact.html#inquiry-form"
                 }
             ]
         },
@@ -110,6 +109,10 @@
             "products_heading": "Products",
             "products_links": [
                 {
+                    "label": "Introduction of PLA",
+                    "href": "products.html#pla-introduction"
+                },
+                {
                     "label": "Core Products & Services",
                     "href": "products.html#core-products"
                 },
@@ -133,7 +136,7 @@
         "form": {
             "email_to": "",
             "wa_to": "",
-            "product_placeholder": "Select a product...",
+            "product_placeholder": "Select a product",
             "other_option_value": "Other / Not sure yet",
             "other_option_label": "Other / Not sure yet"
         }
@@ -147,7 +150,7 @@
                 "form_label": "Custom Bioplastic Compounding",
                 "title": "Custom Bioplastic Compounding",
                 "summary": "Precision compounding of base biopolymers with functional additives, fillers, or structural reinforcements to your exact specification.",
-                "description": "Precision compounding of base biopolymers with functional additives, fillers, or structural reinforcements — matched to your process and end-use requirements."
+                "description": "Precision compounding of base biopolymers with functional additives, fillers, or structural reinforcements, matched to your process and end-use requirements."
             },
             {
                 "ckey": "service-engineering",
@@ -165,44 +168,86 @@
                 "form_label": "",
                 "title": "Eco-Friendly & Zero Waste",
                 "summary": "High-grade biopolymer resins processed to help clients achieve their corporate sustainability and carbon-footprint targets.",
-                "description": "High-grade product biopolymer resins processed to help clients achieve their corporate sustainability and carbon-footprint targets."
+                "description": "High-grade biopolymer resins processed to help clients achieve their corporate sustainability and carbon-footprint targets."
             }
         ],
         "industry": [
             {
                 "ckey": "ind-food",
                 "icon": "food",
-                "name": "Food & Beverage Packaging"
+                "name": "Food & Beverage Packaging",
+                "gallery": [
+                    "assets/images/industries/food-beverage-packaging-1.jpg",
+                    "assets/images/industries/food-beverage-packaging-2.jpg"
+                ]
+            },
+            {
+                "ckey": "ind-serviceware",
+                "icon": "serviceware",
+                "name": "Food Serviceware",
+                "gallery": [
+                    "assets/images/industries/food-serviceware-1.jpg",
+                    "assets/images/industries/food-serviceware-2.jpg",
+                    "assets/images/industries/food-serviceware-3.jpg",
+                    "assets/images/industries/food-serviceware-4.jpg"
+                ]
             },
             {
                 "ckey": "ind-3dprint",
                 "icon": "printing",
-                "name": "3D Printing Filaments"
+                "name": "3D Printing",
+                "gallery": [
+                    "assets/images/industries/3d-printing-1.jpg",
+                    "assets/images/industries/3d-printing-2.jpg"
+                ]
             },
             {
                 "ckey": "ind-electronics",
                 "icon": "electronics",
-                "name": "Electronics & Appliances"
+                "name": "Electronics & Appliances",
+                "gallery": [
+                    "assets/images/industries/electronics-appliances-1.jpg",
+                    "assets/images/industries/electronics-appliances-2.jpg"
+                ]
             },
             {
                 "ckey": "ind-beauty",
                 "icon": "beauty",
-                "name": "Beauty & Household Items"
+                "name": "Beauty & Household",
+                "gallery": [
+                    "assets/images/industries/beauty-household-1.jpg",
+                    "assets/images/industries/beauty-household-2.jpg",
+                    "assets/images/industries/beauty-household-3.jpg",
+                    "assets/images/industries/beauty-household-4.jpg"
+                ]
             },
             {
                 "ckey": "ind-agri",
                 "icon": "agriculture",
-                "name": "Landscape & Agriculture"
+                "name": "Landscape & Agriculture",
+                "gallery": [
+                    "assets/images/industries/landscape-agriculture-1.jpg",
+                    "assets/images/industries/landscape-agriculture-2.jpg"
+                ]
             },
             {
                 "ckey": "ind-medical",
                 "icon": "medical",
-                "name": "Medical & Hygiene"
+                "name": "Medical & Hygiene",
+                "gallery": [
+                    "assets/images/industries/medical-hygiene-1.jpg",
+                    "assets/images/industries/medical-hygiene-2.jpg"
+                ]
             },
             {
                 "ckey": "ind-construct",
                 "icon": "construction",
-                "name": "Building & Construction"
+                "name": "Building & Construction",
+                "gallery": [
+                    "assets/images/industries/building-construction-1.jpg",
+                    "assets/images/industries/building-construction-2.jpg",
+                    "assets/images/industries/building-construction-3.jpg"
+                ]
             }
         ],
         "pillar": [
@@ -238,14 +283,14 @@
                 "form_value": "PLA Compounds",
                 "form_label": "PLA Compounds",
                 "title": "PLA Compounds",
-                "card_summary": "Industrial compostable compounds from renewable biobased feedstock, replacing petrochemical plastics.",
+                "card_summary": "Industrial compostable compounds made from renewable bio-based feedstock that replace petrochemical plastics.",
                 "image": "assets/images/products/pla-compound.jpg",
                 "card_alt": "PLA Compounds",
                 "link": "products.html#pla-compounds",
                 "eyebrow": "Core Material",
                 "detail_image": "assets/images/products/pla-compound.jpg",
                 "detail_alt": "PLA Compounds visual",
-                "description": "Industrial compostable compounds made from renewable biobased feedstock, invented to replace petrochemical based plastics and reduce environmental impact.",
+                "description": "Industrial compostable compounds made from renewable bio-based feedstock, designed to replace petrochemical-based plastics and reduce environmental impact.",
                 "applications_title": "Applications",
                 "applications": [
                     "Food & Beverage Packaging",
@@ -253,7 +298,8 @@
                     "Film Extrusion",
                     "Paper Coating",
                     "Injection Moldable Items",
-                    "Fibers & Nonwovens"
+                    "Fibers & Nonwovens",
+                    "Drinking Straws"
                 ]
             },
             {
@@ -262,10 +308,68 @@
                 "form_value": "",
                 "form_label": "",
                 "title": "Natural Resource Compounds",
-                "card_summary": "Coffee, wood, cellulose, cassava & sugarcane based compounds reducing CO₂ footprint.",
+                "card_summary": "Coffee, wood, cellulose, cassava, and sugarcane-based compounds that reduce the CO₂ footprint.",
                 "image": "assets/images/products/sugarcane-compound.jpg",
                 "card_alt": "Natural Resource Compounds",
                 "link": "products.html#natural-resource-compounds"
+            }
+        ],
+        "pla_application": [
+            {
+                "ckey": "app-food-packaging",
+                "name": "Food & Beverage Packaging",
+                "gallery": [
+                    "assets/images/industries/food-beverage-packaging-1.jpg",
+                    "assets/images/industries/food-beverage-packaging-2.jpg"
+                ]
+            },
+            {
+                "ckey": "app-3d-filament",
+                "name": "3D Printing Filaments",
+                "gallery": [
+                    "assets/images/industries/3d-printing-1.jpg",
+                    "assets/images/industries/3d-printing-2.jpg"
+                ]
+            },
+            {
+                "ckey": "app-film",
+                "name": "Film Extrusion",
+                "gallery": [
+                    "assets/images/applications/film-extrusion-1.jpg",
+                    "assets/images/applications/film-extrusion-2.jpg"
+                ]
+            },
+            {
+                "ckey": "app-paper-coating",
+                "name": "Paper Coating",
+                "gallery": [
+                    "assets/images/applications/paper-coating-1.jpg",
+                    "assets/images/applications/paper-coating-2.jpg"
+                ]
+            },
+            {
+                "ckey": "app-injection",
+                "name": "Injection Moldable Items",
+                "gallery": [
+                    "assets/images/applications/injection-moldable-items-1.jpg",
+                    "assets/images/applications/injection-moldable-items-2.jpg"
+                ]
+            },
+            {
+                "ckey": "app-fibers",
+                "name": "Fibers & Nonwovens",
+                "gallery": [
+                    "assets/images/applications/fibers-nonwovens-1.jpg",
+                    "assets/images/applications/fibers-nonwovens-2.jpg"
+                ]
+            },
+            {
+                "ckey": "app-straws",
+                "name": "Drinking Straws",
+                "gallery": [
+                    "assets/images/applications/drinking-straws-1.jpg",
+                    "assets/images/applications/drinking-straws-2.jpg"
+                ]
             }
         ],
         "nrc": [
@@ -277,19 +381,19 @@
                 "image_alt": "Coffee Powder Compound sample",
                 "list_name": "Coffee Powder Compounds",
                 "in_dropdown": true,
-                "form_value": "Natural Resource Compound – Coffee Powder",
-                "form_label": "Natural Resource Compound — Coffee Powder"
+                "form_value": "Natural Resource Compound: Coffee Powder",
+                "form_label": "Natural Resource Compound: Coffee Powder"
             },
             {
                 "ckey": "nrc-wood",
                 "name": "Wood Chip Compound",
-                "card_desc": "Fine wood fiber reinforced compound for rigid moulded parts.",
+                "card_desc": "Compound reinforced with fine wood fiber for rigid molded parts.",
                 "image": "assets/images/products/wood-chip-compound.jpg",
                 "image_alt": "Wood Chip Compound sample",
                 "list_name": "Wood Chip Compounds",
                 "in_dropdown": true,
-                "form_value": "Natural Resource Compound – Wood Chip",
-                "form_label": "Natural Resource Compound — Wood Chip"
+                "form_value": "Natural Resource Compound: Wood Chip",
+                "form_label": "Natural Resource Compound: Wood Chip"
             },
             {
                 "ckey": "nrc-cellulose",
@@ -299,8 +403,8 @@
                 "image_alt": "Cellulose Compound sample",
                 "list_name": "Cellulose Compounds",
                 "in_dropdown": true,
-                "form_value": "Natural Resource Compound – Cellulose",
-                "form_label": "Natural Resource Compound — Cellulose"
+                "form_value": "Natural Resource Compound: Cellulose",
+                "form_label": "Natural Resource Compound: Cellulose"
             },
             {
                 "ckey": "nrc-cassava",
@@ -310,8 +414,8 @@
                 "image_alt": "Cassava Compound sample",
                 "list_name": "Cassava Compounds",
                 "in_dropdown": true,
-                "form_value": "Natural Resource Compound – Cassava",
-                "form_label": "Natural Resource Compound — Cassava"
+                "form_value": "Natural Resource Compound: Cassava",
+                "form_label": "Natural Resource Compound: Cassava"
             },
             {
                 "ckey": "nrc-sugarcane",
@@ -321,8 +425,8 @@
                 "image_alt": "Sugarcane Compound sample",
                 "list_name": "Sugarcane Compounds",
                 "in_dropdown": true,
-                "form_value": "Natural Resource Compound – Sugarcane",
-                "form_label": "Natural Resource Compound — Sugarcane"
+                "form_value": "Natural Resource Compound: Sugarcane",
+                "form_label": "Natural Resource Compound: Sugarcane"
             }
         ],
         "why_choose": [
@@ -334,7 +438,7 @@
             {
                 "ckey": "why-2",
                 "title": "Precision, Tailor-Made Formulations",
-                "description": "Every compound is engineered with precise mechanical, thermal, and chemical resistance properties tailored to your exact application — not a one-size-fits-all resin."
+                "description": "Every compound is engineered with precise mechanical, thermal, and chemical resistance properties tailored to your exact application, not a one-size-fits-all resin."
             },
             {
                 "ckey": "why-3",
@@ -348,7 +452,7 @@
             },
             {
                 "ckey": "why-5",
-                "title": "A Responsive B2B Partner",
+                "title": "A Responsive Manufacturing Partner",
                 "description": "Based in Tangerang, Indonesia, and structured to support both domestic and international manufacturing clients with direct, responsive communication."
             }
         ],
@@ -378,9 +482,11 @@
             "og_image": "",
             "sections": {
                 "hero": {
-                    "eyebrow": "PT Envio Kompound Indonesia · Est. 2025",
+                    "eyebrow": "PT Envio Kompound Indonesia, Est. 2025",
                     "heading": "Integrated Compostable Biopolymer & Bioplastic Compounding Solutions",
-                    "lead": "A premier Indonesian manufacturer specializing in compostable biopolymer processing, material formulation, and custom bioplastic compounding — engineered to meet the rigorous demands of domestic and international industries.",
+                    "lead": "A premier Indonesian manufacturer specializing in compostable biopolymer processing, material formulation, and custom bioplastic compounding, engineered to meet the rigorous demands of domestic and international industries.",
+                    "image": "assets/images/home.jpg",
+                    "image_mobile": "assets/images/home-mobile.jpg",
                     "video": "assets/video/hero-lab.mp4",
                     "poster": "assets/video/hero-poster.jpg",
                     "buttons": [
@@ -397,7 +503,7 @@
                     ],
                     "stats": [
                         {
-                            "number": "7+",
+                            "number": "8+",
                             "label": "Industries Served"
                         },
                         {
@@ -433,7 +539,7 @@
                 "what-we-offer": {
                     "eyebrow": "What We Offer",
                     "heading": "Core Products & Services",
-                    "intro": "From precision compounding to zero-waste resin engineering — capabilities built around your production line.",
+                    "intro": "From precision compounding to zero-waste resin engineering, with capabilities built around your production line.",
                     "button": {
                         "label": "View Product Range",
                         "href": "products.html#core-products"
@@ -449,7 +555,7 @@
                 },
                 "cta": {
                     "heading": "Let's Build Sustainable Materials Together",
-                    "text": "Tell us your application and specification — our team will respond with a tailored compound recommendation.",
+                    "text": "Tell us your application and specification, and our team will respond with a tailored compound recommendation.",
                     "button": {
                         "label": "Send an Inquiry",
                         "href": "contact.html#inquiry-form"
@@ -466,7 +572,7 @@
                 "hero": {
                     "breadcrumb": "About",
                     "heading": "About PT Envio Kompound Indonesia",
-                    "subtitle": "A premier manufacturer of compostable biopolymer and custom bioplastic compounds — built on innovation, quality, and environmental responsibility."
+                    "subtitle": "A premier manufacturer of compostable biopolymer and custom bioplastic compounds, built on innovation, quality, and environmental responsibility."
                 },
                 "about-us": {
                     "nav_label": "About Us",
@@ -533,7 +639,37 @@
                 "hero": {
                     "breadcrumb": "Products & Applications",
                     "heading": "Products & Applications",
-                    "subtitle": "Custom bioplastic compounding, PLA compounds, and natural resource compounds — engineered for food packaging, 3D printing, electronics, beauty, agriculture, medical and construction applications."
+                    "subtitle": "Custom bioplastic compounding, PLA compounds, and natural resource compounds, engineered for food packaging, 3D printing, electronics, beauty, agriculture, medical, and construction applications."
+                },
+                "pla-introduction": {
+                    "nav_label": "Introduction of PLA",
+                    "eyebrow": "Introduction of PLA",
+                    "heading": "Introduction of Polylactic Acid (PLA)",
+                    "blocks": [
+                        {
+                            "title": "Bio-based",
+                            "lead": "Bio-based plastics are distinguished from petroleum-based plastics by the initial source of the material.",
+                            "text": "PLA, the raw material of which comes from plants such as corn, cassava, and sugarcane, boasts an inexhaustible supply. Upon decomposition, PLA is absorbed by plants through photosynthesis, forming a green carbon cycle that can liberate us from reliance on traditional fossil materials and achieve sustainable social development. Research indicates that the lifecycle carbon emissions of PLA are more than 50% lower than those of traditional petrochemical materials. An LCA study reveals that the energy consumption during the entire production chain of every kilogram of PLA products is 64.13MJ, significantly lower than that required for producing the same amount of petroleum-based materials. Furthermore, the CO2 emissions per kilogram of PLA products are only 1.62 kilograms, far less than those of PP, PS, PET, and other petroleum-based materials. Therefore, biobased PLA materials are a key pathway to realizing the national \"dual-carbon\" strategy."
+                        },
+                        {
+                            "title": "PLA",
+                            "lead": "PLA is a polyester material widely recognized as a promising new material among biobased materials.",
+                            "text": "PLA is a polyester material and a recognized promising new material among biobased materials. Its raw materials come from natural biomass and have fully biodegradable properties. It can be utilized by microorganisms in nature, ultimately producing carbon dioxide and water, with no environmental pollution. PLA exhibits excellent mechanical and processing properties similar to those of existing plastics such as PET and polystyrene. Additionally, PLA has good biocompatibility, being non-toxic and non-irritating. It can be biodegraded and absorbed, and broken down by enzymes or degraded into small molecules and excreted from the body."
+                        }
+                    ],
+                    "stats": [],
+                    "stats_source": "",
+                    "features_title": "Key Features of PLA",
+                    "features": [
+                        {
+                            "title": "Biodegradability",
+                            "text": "PLA can be completely degraded into H2O and CO2, making it a crucial solution for global plastic pollution and a key material for implementing national \"plastic restriction\" policies."
+                        },
+                        {
+                            "title": "Biocompatibility",
+                            "text": "PLA's excellent biocompatibility has led to its widespread application in the biomedical field."
+                        }
+                    ]
                 },
                 "core-products": {
                     "nav_label": "Core Products & Services",
@@ -547,7 +683,7 @@
                     "nav_label": "Natural Resource Compounds",
                     "eyebrow": "Natural Resource Compounds",
                     "heading": "Renewable Feedstock, Compounded to Reduce Carbon Impact",
-                    "intro": "Natural resources are compounded with petrochemical based plastics, invented to reduce the carbon-dioxide released when incinerated.",
+                    "intro": "Natural resources are compounded with petrochemical-based plastics to reduce the carbon dioxide released when they are incinerated.",
                     "custom_title": "Need a Custom Blend?",
                     "custom_text": "Our team can formulate a natural resource compound around your feedstock and application.",
                     "custom_button": {
@@ -558,13 +694,13 @@
                     "applications_title": "Applications",
                     "applications": [
                         "Drinking Straws",
-                        "Injection Moldable Items (Cutleries, Cups, Capsules)",
+                        "Injection Moldable Items (Cutlery, Cups, Capsules)",
                         "Picture Frames"
                     ]
                 },
                 "cta": {
                     "heading": "Need a Custom Formulation?",
-                    "text": "Talk to our team about your material spec, volume, and application — we'll recommend the right compound.",
+                    "text": "Talk to our team about your material spec, volume, and application, and we'll recommend the right compound.",
                     "button": {
                         "label": "Talk to Our Team",
                         "href": "contact.html#inquiry-form"
@@ -581,23 +717,23 @@
                 "hero": {
                     "breadcrumb": "Contact",
                     "heading": "Let's Talk About Your Compound Requirements",
-                    "subtitle": "Reach our team directly, or send a detailed inquiry below — we'll route it straight to WhatsApp or Email, whichever you prefer."
+                    "subtitle": "Reach our team directly, or send a detailed inquiry below. We'll route it straight to WhatsApp or Email, whichever you prefer."
                 },
                 "contact-info": {
                     "eyebrow": "Contact Information",
                     "heading": "Headquarters & Plant",
                     "row_hq_label": "Headquarters / Plant",
-                    "row_sales_label": "Phone — Sales",
+                    "row_sales_label": "Sales Phone",
                     "row_sales_suffix": " (WhatsApp)",
-                    "row_office_label": "Phone — Office",
+                    "row_office_label": "Office Phone",
                     "row_email_label": "Email",
                     "row_website_label": "Website",
                     "map_title": "PT Envio Kompound Indonesia location map"
                 },
                 "inquiry-form": {
-                    "eyebrow": "Form Inquiry",
-                    "heading": "Send a B2B Inquiry",
-                    "intro": "Fill in your requirements below. Choose to send it instantly via WhatsApp or Email — no account or sign-up needed.",
+                    "eyebrow": "Inquiry Form",
+                    "heading": "Send an Inquiry",
+                    "intro": "Fill in your requirements below. Choose to send it instantly via WhatsApp or Email. No account or sign-up needed.",
                     "fields": {
                         "name": {
                             "label": "Full Name",
@@ -640,14 +776,14 @@
                         },
                         "message": {
                             "label": "Your Requirements",
-                            "placeholder": "Describe your application, target properties, volume, and timeline...",
+                            "placeholder": "Describe your application, target properties, volume, and timeline",
                             "required": true,
                             "error": "Please describe your requirements."
                         }
                     },
                     "btn_whatsapp": "Send via WhatsApp",
                     "btn_email": "Send via Email",
-                    "disclaimer": "By submitting, you'll be redirected to WhatsApp or your email client with your inquiry pre-filled — nothing is sent automatically or stored on this site."
+                    "disclaimer": "By submitting, you'll be redirected to WhatsApp or your email client with your inquiry pre-filled. Nothing is sent automatically or stored on this site."
                 }
             }
         }

@@ -47,7 +47,7 @@ function short(v){ v = String(v == null ? "" : v); return v.length > 60 ? v.slic
 function label(path){ return String(path).replace(/\.(\d+)/g, "[$1]"); }
 
 /* ===================== SETTINGS ===================== */
-var ICON_OPTS = ["food","printing","electronics","beauty","agriculture","medical","construction"];
+var ICON_OPTS = ["food","serviceware","printing","electronics","beauty","agriculture","medical","construction"];
 var SETTINGS_SECTIONS = [
   { title: "Identitas & Logo", fields: [
     { path: "settings.identity.brand_name", label: "Nama brand", type: "text" },
@@ -118,7 +118,8 @@ var COLLECTION_SECTIONS = [
     { key: "description", label: "Deskripsi", type: "textarea" } ].concat(DROPDOWN_FIELDS, [VIS]) }]},
   { title: "Industri", lists: [{ path: "collections.industry", title: "Industry", reorder: true, item: [
     { key: "name", label: "Nama", type: "text" },
-    { key: "icon", label: "Ikon", type: "select", options: ICON_OPTS } ].concat([VIS]) }]},
+    { key: "icon", label: "Ikon", type: "select", options: ICON_OPTS } ].concat([VIS]),
+    sub: { key: "gallery", title: "Foto saat diklik (path gambar, mis. assets/images/industries/…)", strings: true, addLabel: "+ Tambah foto" } }]},
   { title: "Pilar / Pillar", lists: [{ path: "collections.pillar", title: "Pillar", reorder: true, item: [
     { key: "title", label: "Judul", type: "text" }, { key: "summary", label: "Ringkasan", type: "textarea" },
     { key: "description", label: "Deskripsi", type: "textarea" } ].concat([VIS]) }]},
@@ -128,7 +129,10 @@ var COLLECTION_SECTIONS = [
     { key: "link", label: "Tautan kartu", type: "text" }, { key: "eyebrow", label: "Eyebrow detail", type: "text" },
     { key: "detail_image", label: "Gambar detail", type: "image" }, { key: "detail_alt", label: "Alt gambar detail", type: "text" },
     { key: "description", label: "Deskripsi detail", type: "textarea" }, { key: "applications_title", label: "Judul aplikasi", type: "text" }
-  ].concat(DROPDOWN_FIELDS, [VIS]), sub: { key: "applications", title: "Aplikasi", strings: true, addLabel: "+ Tambah aplikasi" } }]},
+  ].concat(DROPDOWN_FIELDS, [VIS]), sub: { key: "applications", title: "Aplikasi (cadangan, dipakai bila koleksi Aplikasi PLA kosong)", strings: true, addLabel: "+ Tambah aplikasi" } }]},
+  { title: "Aplikasi PLA", lists: [{ path: "collections.pla_application", title: "Aplikasi PLA", reorder: true, item: [
+    { key: "name", label: "Nama", type: "text" } ].concat([VIS]),
+    sub: { key: "gallery", title: "Foto saat diklik (path gambar)", strings: true, addLabel: "+ Tambah foto" } }]},
   { title: "Natural Resource Compounds", lists: [{ path: "collections.nrc", title: "NRC", reorder: true, item: [
     { key: "name", label: "Nama", type: "text" }, { key: "card_desc", label: "Deskripsi kartu", type: "textarea" },
     { key: "image", label: "Gambar", type: "image" }, { key: "image_alt", label: "Alt gambar", type: "text" },
@@ -157,7 +161,9 @@ var PAGES = {
       { path: sec("home","hero") + ".eyebrow", label: "Eyebrow", type: "text" },
       { path: sec("home","hero") + ".heading", label: "Judul", type: "textarea" },
       { path: sec("home","hero") + ".lead", label: "Lead", type: "textarea" },
-      { path: sec("home","hero") + ".video", label: "Video (path .mp4)", type: "text", hint: "Slot video hanya menerima .mp4." },
+      { path: sec("home","hero") + ".image", label: "Foto background (diisi = menggantikan video)", type: "image" },
+      { path: sec("home","hero") + ".image_mobile", label: "Foto background untuk HP (opsional, sebaiknya potret)", type: "image" },
+      { path: sec("home","hero") + ".video", label: "Video (path .mp4)", type: "text", hint: "Slot video hanya menerima .mp4. Dipakai hanya bila Foto background kosong." },
       { path: sec("home","hero") + ".poster", label: "Poster video", type: "image" },
       { path: sec("home","hero") + ".panel_title", label: "Judul panel", type: "text" }
     ], lists: [ btnList(sec("home","hero")),
@@ -167,7 +173,9 @@ var PAGES = {
     { title: "Who We Are", fields: [
       { path: sec("home","who-we-are") + ".eyebrow", label: "Eyebrow", type: "text" },
       { path: sec("home","who-we-are") + ".heading", label: "Judul", type: "text" },
-      { path: sec("home","who-we-are") + ".panel_title", label: "Judul panel", type: "text" }
+      { path: sec("home","who-we-are") + ".panel_title", label: "Judul panel", type: "text" },
+      { path: sec("home","who-we-are") + ".image", label: "Foto (kosong = tanpa foto, panel di samping)", type: "image" },
+      { path: sec("home","who-we-are") + ".image_alt", label: "Alt foto", type: "text" }
     ].concat(buttonFields(sec("home","who-we-are"))), lists: [
       { path: sec("home","who-we-are") + ".paragraphs", title: "Paragraf", strings: true } ]},
     { title: "What We Offer", fields: [
@@ -232,6 +240,18 @@ var PAGES = {
       { path: sec("products","core-products") + ".nav_label", label: "Label subnav", type: "text" },
       { path: sec("products","core-products") + ".eyebrow", label: "Eyebrow", type: "text" },
       { path: sec("products","core-products") + ".heading", label: "Judul", type: "text" } ]},
+    { title: "Introduction of PLA", fields: [
+      { path: sec("products","pla-introduction") + ".nav_label", label: "Label subnav", type: "text" },
+      { path: sec("products","pla-introduction") + ".eyebrow", label: "Eyebrow", type: "text" },
+      { path: sec("products","pla-introduction") + ".heading", label: "Judul", type: "text" },
+      { path: sec("products","pla-introduction") + ".stats_source", label: "Catatan sumber angka", type: "text" },
+      { path: sec("products","pla-introduction") + ".features_title", label: "Judul Key Features", type: "text" } ], lists: [
+      { path: sec("products","pla-introduction") + ".blocks", title: "Blok teks", reorder: true, item: [
+        { key: "title", label: "Judul", type: "text" }, { key: "lead", label: "Kalimat pembuka", type: "textarea" }, { key: "text", label: "Isi", type: "textarea" } ]},
+      { path: sec("products","pla-introduction") + ".stats", title: "Angka", reorder: true, item: [
+        { key: "number", label: "Angka", type: "text" }, { key: "label", label: "Keterangan", type: "text" } ]},
+      { path: sec("products","pla-introduction") + ".features", title: "Key Features", reorder: true, item: [
+        { key: "title", label: "Judul", type: "text" }, { key: "text", label: "Teks", type: "textarea" } ]} ]},
     { title: "PLA Compounds", fields: [
       { path: sec("products","pla-compounds") + ".nav_label", label: "Label subnav", type: "text" } ],
       note: "Isi utama bagian ini diambil dari koleksi Compound Family (ckey cf-pla). Edit di tab Koleksi." },
@@ -275,8 +295,8 @@ var PAGES = {
       { path: sec("contact","inquiry-form") + ".disclaimer", label: "Disclaimer", type: "textarea" } ]},
     { title: "Label field formulir", fields: ["name","company","email","phone","location","quantity","product","message"].reduce(function(acc, f){
         var b = sec("contact","inquiry-form") + ".fields." + f;
-        acc.push({ path: b + ".label", label: f + " — label", type: "text" });
-        acc.push({ path: b + ".placeholder", label: f + " — placeholder", type: "text" });
+        acc.push({ path: b + ".label", label: f + ": label", type: "text" });
+        acc.push({ path: b + ".placeholder", label: f + ": placeholder", type: "text" });
         return acc;
       }, []) }
   ]

@@ -50,15 +50,15 @@
 
   function buildMessage() {
     var lines = [
-      "New B2B Inquiry — PT Envio Kompound Indonesia website",
+      "New inquiry from the PT Envio Kompound Indonesia website",
       "",
       "Name: " + getValue("name"),
       "Company: " + getValue("company"),
       "Email: " + getValue("email"),
       "Phone / WhatsApp: " + getValue("phone"),
-      "Country / City: " + (getValue("location") || "-"),
-      "Product Interest: " + (getValue("product") || "-"),
-      "Estimated Quantity: " + (getValue("quantity") || "-"),
+      "Country / City: " + (getValue("location") || "Not specified"),
+      "Product Interest: " + (getValue("product") || "Not specified"),
+      "Estimated Quantity: " + (getValue("quantity") || "Not specified"),
       "",
       "Message:",
       getValue("message")
@@ -85,7 +85,7 @@
     }
     var message = encodeURIComponent(buildMessage());
     var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + message;
-    showStatus("success", "Opening WhatsApp with your inquiry pre-filled — just hit send there.");
+    showStatus("success", "Opening WhatsApp with your inquiry pre-filled. Just hit send there.");
     window.open(url, "_blank", "noopener");
   });
 
@@ -95,10 +95,10 @@
       focusFirstInvalid();
       return;
     }
-    var subject = encodeURIComponent("B2B Inquiry — " + (getValue("company") || getValue("name")));
+    var subject = encodeURIComponent("Inquiry from " + (getValue("company") || getValue("name")));
     var body = encodeURIComponent(buildMessage());
     var url = "mailto:" + CONTACT_EMAIL + "?subject=" + subject + "&body=" + body;
-    showStatus("success", "Opening your email client with your inquiry pre-filled — just hit send.");
+    showStatus("success", "Opening your email client with your inquiry pre-filled. Just hit send.");
     window.location.href = url;
   });
 

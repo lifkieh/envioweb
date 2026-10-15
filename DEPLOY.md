@@ -59,3 +59,19 @@ If you did NOT set bootstrap env, create a user over SSH: `node cms-user.js add 
   fingerprint, so visitors get updates automatically (no manual cache clearing).
 - To point the site at your real domain, edit **Pengaturan Situs → Identitas → Website (URL lengkap)** in
   the CMS (drives canonical/OG/sitemap), and update `robots.txt`/`sitemap.xml` host if needed.
+
+## Vercel (CMS + website, no server needed)
+
+The `api/` folder runs the same CMS as a Vercel serverless function. Content, users, backups and uploads
+live in a **private Vercel Blob store** instead of local files, and pages are rendered from that content on
+request, so a publish is live within seconds (no rebuild). `server.js` is only for local/Node hosting.
+
+One-time setup (already done for `enviowebsite`):
+1. `npx vercel blob create-store envio-cms --access private --yes` (creates the store and sets `BLOB_READ_WRITE_TOKEN`).
+2. Add env vars to Production: `CMS_SESSION_SECRET` (long random), `CMS_BOOTSTRAP_USER`, `CMS_BOOTSTRAP_PASSWORD`
+   (creates the first admin only while no users exist; change the password in **Akun Saya**, then you may remove it).
+3. `npx vercel deploy --prod` from this folder. `vercel.json` routes pages, `/admin` and `/api/*` to `api/cms.js`;
+   `.vercelignore` keeps server-only and heavy files out of the deployment.
+
+Notes: the admin lives at `/admin`. Static files (CSS, JS, images in `assets/`) are part of the deployment, so a change
+to them needs a new deploy; text and content edited in the CMS do not. Uploads from the CMS are stored in Blob.

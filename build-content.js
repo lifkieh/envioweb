@@ -56,11 +56,13 @@ function renderPageHtml(content, page){
     "</body>\n</html>\n";
 }
 
+function contentJsSource(data){ return HEADER + "window.SITE_CONTENT = " + JSON.stringify(data, null, 2) + ";\n"; }
+
 function build(){
   var SRC = auth.contentFile();
   var data = JSON.parse(fs.readFileSync(SRC, "utf8")); // throws on invalid JSON — caller handles
   // 1) content.js global
-  writeAtomic(OUT, HEADER + "window.SITE_CONTENT = " + JSON.stringify(data, null, 2) + ";\n");
+  writeAtomic(OUT, contentJsSource(data));
   // 2) prerendered static pages
   var files = R.PAGE_FILES; // { home:"index.html", about:"about.html", ... }
   Object.keys(files).forEach(function(page){ writeAtomic(path.join(ROOT, files[page]), renderPageHtml(data, page)); });
@@ -71,4 +73,4 @@ if(require.main === module){
   console.log("built " + build() + " + prerendered pages from " + auth.contentFile());
 }
 
-module.exports = { build: build };
+module.exports = { build: build, renderPageHtml: renderPageHtml, contentJsSource: contentJsSource };

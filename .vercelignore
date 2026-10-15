@@ -1,0 +1,20 @@
+# Not part of the Vercel deployment (server-only / local-only / heavy)
+server.js
+cms-user.js
+cms-init.js
+cms-doctor.js
+start-local.bat
+DEPLOY.md
+README.md
+.env
+.env.*
+index.html
+about.html
+products.html
+contact.html
+assets/content.js
+assets/content.json
+assets/*.pptx
+revisi/
+.vercel-out/
+node_modules/

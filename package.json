@@ -2,7 +2,7 @@
   "name": "enviowebsite",
   "version": "2.0.0",
   "private": true,
-  "description": "PT Envio Kompound Indonesia — static site + JSON-backed CMS (Node built-ins only, no dependencies).",
+  "description": "PT Envio Kompound Indonesia \u2014 static site + JSON-backed CMS (Node built-ins only, no dependencies for the local server; @vercel/blob is used only by the Vercel deployment (api/)).",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,6 +10,11 @@
     "build": "node build-content.js",
     "doctor": "node cms-doctor.js"
   },
-  "engines": { "node": ">=16" },
-  "license": "UNLICENSED"
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@vercel/blob": "^2.8.2"
+  }
 }

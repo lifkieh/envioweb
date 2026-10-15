@@ -1,0 +1,22 @@
+{
+  "framework": null,
+  "buildCommand": "",
+  "functions": {
+    "api/cms.js": {
+      "maxDuration": 30,
+      "includeFiles": "{admin.html,assets/content.seed.json,assets/images/**}"
+    }
+  },
+  "routes": [
+    { "src": "^/(server|cms-auth|cms-user|cms-init|cms-doctor|build-content)\\.js$", "status": 404 },
+    { "src": "^/(package(-lock)?\\.json|vercel\\.json|DEPLOY\\.md|README\\.md|admin\\.html|start-local\\.bat)$", "status": 404 },
+    { "src": "^/assets/content(\\.seed)?\\.json$", "status": 404 },
+    { "src": "^/api/(.*)$", "dest": "/api/cms?_p=/api/$1" },
+    { "src": "^/(?:index\\.html)?$", "dest": "/api/cms?_p=/" },
+    { "src": "^/(about|products|contact)\\.html$", "dest": "/api/cms?_p=/$1.html" },
+    { "src": "^/admin/?$", "dest": "/api/cms?_p=/admin" },
+    { "src": "^/assets/content\\.js$", "dest": "/api/cms?_p=/assets/content.js" },
+    { "src": "^/assets/images/uploads/([^/]+)$", "dest": "/api/cms?_p=/assets/images/uploads/$1" },
+    { "handle": "filesystem" }
+  ]
+}
